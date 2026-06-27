@@ -1,7 +1,10 @@
 # Architect Path — Principal Dev → (AI) Software Architect
 
+**📖 Read it live: https://architect-path.vercel.app**
+
 A personal, bilingual (EN/BG) learning workspace for the transition from Principal Software
 Developer to **(AI) Software Architect**, built as a structured course of short, beautiful lessons.
+Hosted on Vercel — every push to `main` auto-deploys.
 
 ## Mission
 Earn an internal promotion to (AI) Software Architect — broader influence, the title, riding the

@@ -10,3 +10,5 @@ Thumbs.db
 # Skill scaffolding (not course content)
 .agents/
 skills-lock.json
+.vercel
+.env*
