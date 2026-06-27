@@ -20,6 +20,13 @@
 - Preferred lesson cadence (one quick lesson per sitting? batches?).
 - Does the company have a written architect competency/leveling rubric we can target directly?
 
+## Deployment (live site)
+- **Live:** https://architect-path.vercel.app — read as a book.
+- **Hosting:** Vercel project `omni-body/architect-path`, static (output dir `.`).
+- **Auto-deploy:** GitHub repo `ventsislavnikolov/architect-path` is git-connected → every push to
+  `main` auto-deploys to production. So the workflow each update is just: edit → commit → push.
+- `.vercel/` and `.env*` are gitignored. Manual deploy fallback: `vercel deploy --prod`.
+
 ## Pedagogy reminders
 - Storage strength > fluency: use retrieval practice, spacing, interleaving.
 - Quizzes: all answer options equal length/word-count, no formatting tells.
