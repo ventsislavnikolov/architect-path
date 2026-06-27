@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — (AI) Software Architect</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  dl.glossary dt { font-weight: 600; margin-top: 1.4rem; font-size: 1.08rem; }
+  dl.glossary dt .tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--rule); border-radius: 4px; padding: .1em .4em; margin-left: .5rem; vertical-align: middle; }
+  dl.glossary dd { margin: .25rem 0 0; color: var(--soft); }
+  .toc { columns: 2; column-gap: 2rem; font-size: .95rem; }
+  @media (max-width: 38rem) { .toc { columns: 1; } }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="glossary.html">EN</a><a href="glossary.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Reference · Canonical vocabulary</p>
+  <h1>Glossary</h1>
+  <p class="subtitle">The shared language for the (AI) Software Architect course. Every lesson uses these terms exactly.</p>
+</header>
+
+<p class="muted">Two families: the <strong>architect's craft</strong> (decisions, trade-offs, governance) and <strong>AI-systems</strong> concerns. Mixed deliberately — an AI architect needs both fluent.</p>
+
+<dl class="glossary">
+
+  <dt>Trade-off <span class="tag">craft</span></dt>
+  <dd>An advantage paired with a disadvantage. The <em>First Law of Software Architecture</em>:
+  <em>everything</em> is a trade-off. The architect's core job is analyzing them, not eliminating them.</dd>
+
+  <dt>Least-worst architecture <span class="tag">craft</span></dt>
+  <dd>The goal is never the "best" architecture (it doesn't exist) but the one whose downsides
+  you can most afford. Naming what you're <em>giving up</em> is the mark of an architect.</dd>
+
+  <dt>Architecture characteristic <span class="tag">craft</span></dt>
+  <dd>A non-functional, system-wide quality the design must deliver — scalability, availability,
+  security, evolvability, cost. Sometimes called the "-ilities." Derived <em>from business needs</em>,
+  not chosen for taste. You can only optimize a few; choosing which is architecture.</dd>
+
+  <dt>Architect elevator <span class="tag">craft</span></dt>
+  <dd>Gregor Hohpe's metaphor: the architect rides between the <em>board room</em> (strategy, money)
+  and the <em>engine room</em> (code, systems), translating each to the other. Influence comes from
+  connecting the floors, not living on one.</dd>
+
+  <dt>Influence without authority <span class="tag">craft</span></dt>
+  <dd>Driving decisions you don't have the formal power to mandate — through trade-off clarity,
+  business framing, and making others smarter. The defining skill separating architect from senior dev.</dd>
+
+  <dt>ADR — Architecture Decision Record <span class="tag">craft</span></dt>
+  <dd>A short document capturing one significant decision: its <em>context</em>, the <em>decision</em>,
+  and its <em>consequences</em>. Captures the <em>why</em>. Cheap to write, compounding to keep.</dd>
+
+  <dt>Fitness function <span class="tag">craft</span></dt>
+  <dd>An automated check (often in CI) that <em>assures</em> an architectural decision stays true over
+  time. "An ADR documents the decision; a fitness function enforces it." Catches drift before production.</dd>
+
+  <dt>C4 model <span class="tag">craft</span></dt>
+  <dd>Hierarchical diagrams at four zoom levels — <em>Context, Container, Component, Code</em>. Shows the
+  <em>what</em>; pairs with ADRs (the <em>why</em>) to form a navigable architecture knowledge graph.</dd>
+
+  <dt>Paved road <span class="tag">craft</span></dt>
+  <dd>An approved, supported default path (patterns, tooling, guardrails) that makes the safe choice the
+  easy choice. The architect's lever for scaling good decisions without reviewing every one.</dd>
+
+  <dt>RAG — Retrieval-Augmented Generation <span class="tag">ai</span></dt>
+  <dd>Feeding an LLM relevant retrieved context at query time instead of baking knowledge into weights.
+  The default pattern for grounding answers in your own data.</dd>
+
+  <dt>Fine-tuning <span class="tag">ai</span></dt>
+  <dd>Adjusting a model's weights on task/domain data. Trades upfront cost & rigidity for behavior/style
+  control. Architecturally: RAG vs fine-tune vs long-context is a classic trade-off decision.</dd>
+
+  <dt>Agentic / Adaptive RAG <span class="tag">ai</span></dt>
+  <dd><em>Agentic:</em> the LLM controls its own retrieval workflow (tools, multi-step).
+  <em>Adaptive:</em> a router classifies each query by complexity and sends it to the cheapest strategy
+  that will work — the pattern that makes production economically viable.</dd>
+
+  <dt>Plan-then-Execute <span class="tag">ai</span></dt>
+  <dd>An agent architecture that plans the full task before acting, for predictability and resistance to
+  control-flow hijacking. Recommended default for any non-trivial multi-tool agent.</dd>
+
+  <dt>Guardrails <span class="tag">ai</span></dt>
+  <dd>Controls between user and model (and model and tools) that block unsafe input/output —
+  hallucination, toxicity, injection, out-of-policy actions. An <em>architectural</em> concern, not a feature bolt-on.</dd>
+
+  <dt>Eval <span class="tag">ai</span></dt>
+  <dd>Systematic measurement of an AI system's quality, safety, and regression — offline (datasets) and
+  online (production). For AI systems, the eval+observability layer is load-bearing architecture, like tests.</dd>
+
+  <dt>Quality / cost / latency triangle <span class="tag">ai</span></dt>
+  <dd>The AI architect's master trade-off, tracked <em>continuously</em>: better answers vs $ per call vs
+  response time. Every AI design decision moves a point inside this triangle.</dd>
+
+</dl>
+
+<footer class="lesson-footer">
+  <p>← Back to <a href="../lessons/0001-the-architects-first-move.html">Lesson 1</a> ·
+  See also <a href="../RESOURCES.md">Resources</a></p>
+  <p class="muted">Living document — terms are added as lessons introduce them.</p>
+</footer>
+</body>
+</html>

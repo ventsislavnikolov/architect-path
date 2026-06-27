@@ -1,0 +1,150 @@
+/* Shared lesson stylesheet — Tufte-inspired. Linked by every lesson & reference doc. */
+
+:root {
+  --ink: #111;
+  --soft: #4a4a4a;
+  --faint: #6b6b6b;
+  --rule: #d8d4cc;
+  --bg: #fffff8;          /* Tufte warm paper */
+  --accent: #8a1a12;      /* muted oxblood */
+  --accent-soft: #b5453a;
+  --link: #1a5276;
+  --code-bg: #f3f1ea;
+  --good: #2f6b3a;
+  --bad: #8a1a12;
+  --serif: et-book, Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+html { font-size: 17px; }
+body {
+  font-family: var(--serif);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  max-width: 44rem;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Language toggle ---- */
+.lang-toggle { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.2rem; }
+.lang-toggle a { border: 1px solid var(--rule); border-radius: 4px; padding: .15em .55em; color: var(--faint); margin-right: .3rem; }
+.lang-toggle a.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* ---- Masthead ---- */
+.masthead { margin-bottom: 2.5rem; }
+.kicker {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 .4rem;
+}
+h1 { font-size: 2.1rem; line-height: 1.1; font-weight: 600; margin: 0 0 .3rem; letter-spacing: -.01em; }
+.subtitle { font-style: italic; color: var(--soft); font-size: 1.15rem; margin: .2rem 0 0; }
+
+h2 { font-size: 1.45rem; font-weight: 600; margin: 2.6rem 0 .6rem; letter-spacing: -.005em; }
+h3 { font-size: 1.12rem; font-weight: 600; margin: 1.8rem 0 .4rem; }
+p, li { font-size: 1.05rem; }
+a { color: var(--link); text-decoration: none; border-bottom: 1px solid rgba(26,82,118,.28); }
+a:hover { border-bottom-color: var(--link); }
+
+/* ---- Mission tie-in banner ---- */
+.mission {
+  border-left: 3px solid var(--accent);
+  background: rgba(138,26,18,.04);
+  padding: .7rem 1rem;
+  margin: 1.6rem 0;
+  font-size: .98rem;
+  color: var(--soft);
+}
+.mission strong { color: var(--accent); }
+
+/* ---- Sidenote-ish callouts ---- */
+.note {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: .9rem 1.1rem;
+  margin: 1.4rem 0;
+  background: #fffefb;
+}
+.note .label {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  display: block;
+  margin-bottom: .35rem;
+}
+
+/* ---- Key idea ---- */
+.keyidea {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 1rem 0;
+  margin: 1.8rem 0;
+  font-style: italic;
+}
+
+blockquote {
+  border-left: 3px solid var(--rule);
+  margin: 1.4rem 0;
+  padding: .2rem 0 .2rem 1.2rem;
+  color: var(--soft);
+  font-style: italic;
+}
+
+code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); padding: .08em .35em; border-radius: 3px; }
+pre { background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.1rem; overflow-x: auto; }
+pre code { background: none; padding: 0; font-size: .82rem; line-height: 1.5; }
+
+table { border-collapse: collapse; width: 100%; margin: 1.4rem 0; font-size: .96rem; }
+th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+
+/* ---- Quiz widget (paired with assets/quiz.js) ---- */
+.quiz { border: 1px solid var(--rule); border-radius: 8px; padding: 1.2rem 1.3rem; margin: 1.6rem 0; background: #fffefb; }
+.quiz .q { font-weight: 600; margin: 0 0 .8rem; font-size: 1.05rem; }
+.quiz .opt {
+  display: block; width: 100%; text-align: left; font-family: var(--serif); font-size: 1rem;
+  padding: .6rem .8rem; margin: .4rem 0; border: 1px solid var(--rule); border-radius: 6px;
+  background: var(--bg); cursor: pointer; transition: background .12s, border-color .12s;
+}
+.quiz .opt:hover { background: #f6f3ea; }
+.quiz .opt.correct { border-color: var(--good); background: rgba(47,107,58,.10); }
+.quiz .opt.wrong { border-color: var(--bad); background: rgba(138,26,18,.08); }
+.quiz .opt:disabled { cursor: default; }
+.quiz .feedback { margin-top: .8rem; font-size: .98rem; min-height: 1.2rem; }
+.quiz .feedback.show { padding: .7rem .9rem; border-radius: 6px; }
+.quiz .feedback.ok { background: rgba(47,107,58,.10); color: var(--good); }
+.quiz .feedback.no { background: rgba(138,26,18,.08); color: var(--bad); }
+
+/* ---- Task / do-this block ---- */
+.task { border: 2px dashed var(--accent-soft); border-radius: 8px; padding: 1.1rem 1.3rem; margin: 1.8rem 0; }
+.task h3 { margin-top: 0; color: var(--accent); }
+
+/* ---- Footer nav ---- */
+.lesson-footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-size: .95rem; color: var(--soft); }
+.ask { background: rgba(26,82,118,.06); border-radius: 6px; padding: .8rem 1rem; margin: 1.4rem 0; font-size: .98rem; }
+.ask strong { color: var(--link); }
+.primary-source { font-size: 1rem; }
+.primary-source .label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+
+hr { border: none; border-top: 1px solid var(--rule); margin: 2.4rem 0; }
+.muted { color: var(--faint); font-size: .9rem; }
+
+/* ---- Print ---- */
+@media print {
+  body { margin: 0; max-width: none; font-size: 11pt; background: #fff; }
+  .quiz .opt { break-inside: avoid; }
+  .ask, .quiz button { display: none; }
+  a { color: var(--ink); border: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .7em; color: var(--faint); }
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 1 — Първият ход на архитекта</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+</head>
+<body>
+<p class="lang-toggle"><a href="0001-the-architects-first-move.html">EN</a><a class="active" href="0001-the-architects-first-move.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Урок 01 · Операционният модел</p>
+  <h1>Първият ход на архитекта</h1>
+  <p class="subtitle">Да назовеш trade-off-а на глас — изречението, което звучи „архитект“, а не „senior developer“.</p>
+</header>
+
+<div class="mission">
+  <strong>Защо точно това, първо.</strong> Ти вече вземаш силни дизайн решения. Разликата за повишението
+  не е по-добри решения — а да направиш разсъжденията си <em>четими и защитими</em> пред хората, които
+  дават титлата. Този урок инсталира най-малкото повторение на това умение, а за пример ползваме
+  <em>AI</em> решение — така покрива и двете половини от мисията ти наведнъж.
+</div>
+
+<p>Senior developer отговаря на <em>„какво построи?“</em>. Архитектът отговаря на
+<em>„какво пожертва и защо точно това е било правилно да изгубиш?“</em> Същото решение — различна
+надморска височина. Целият операционен модел на архитекта стъпва на един закон:</p>
+
+<p class="keyidea">Всичко в софтуерната архитектура е trade-off. Работата не е да намериш най-добрата
+архитектура — такава няма — а <strong>least-worst</strong>: дизайнът, чиито неизбежни недостатъци можеш
+най-добре да си позволиш.<sup><a href="#src">1</a></sup></p>
+
+<p>Това преформулира стойността ти. Ти не си човекът с верния отговор; ти си човекът, който може да
+назове <em>цената на всеки отговор</em> с термини, които вълнуват ръководството. Точно това ти позволява
+да караш <a href="../reference/glossary.bg.html">architect elevator</a> — да превеждаш решение от
+машинното отделение в последствие за борда.<sup><a href="#src">2</a></sup></p>
+
+<h2>Ходът, в три части</h2>
+<p>Вземи кое да е решение и го прекарай през тази форма. Това е зародишът на
+<a href="../reference/glossary.bg.html">ADR</a> — пълния запис ще изградим в Урок 2.</p>
+
+<table>
+  <tr><th>Част</th><th>На какво отговаря</th><th>Провал, ако се пропусне</th></tr>
+  <tr><td><strong>Context</strong></td><td>Коя бизнес сила направи това решение?</td><td>Изглежда като личен вкус</td></tr>
+  <tr><td><strong>Решение</strong></td><td>Какво избрахме?</td><td>—</td></tr>
+  <tr><td><strong>Trade-off</strong></td><td>Какво съзнателно пожертвахме?</td><td>Звучи като „най-добрия“ избор на junior</td></tr>
+</table>
+
+<p>Редът с trade-off-а е цялата игра. Неговата граматика:
+<em>„Избрахме X, жертвайки <strong>[характеристиката, която пожертвахме]</strong> за
+<strong>[характеристиката, която ни трябваше повече]</strong>, защото <strong>[бизнес причина]</strong>.“</em></p>
+
+<h2>Разработен пример — AI решение</h2>
+<p>Екипът ти има нужда от LLM функция, заземена във вътрешни документи. Три опции:
+<a href="../reference/glossary.bg.html">RAG</a>, <a href="../reference/glossary.bg.html">fine-tuning</a>,
+или натъпкване на всичко в дълъг context window. Senior dev избира тази, която му се струва най-яка.
+Архитектът прави хода:</p>
+
+<div class="note">
+  <span class="label">Trade-off изречение на архитектурно ниво</span>
+  „Избрахме <strong>RAG</strong> пред fine-tuning, жертвайки <em>изгладеността на стила и пиковата latency</em>
+  за <em>свежест, проследимост и по-ниска цена на промяна</em> — защото документите се менят седмично,
+  а Legal изисква да цитираме източници. Fine-tuning би замразил знание, което трябва да държим подвижно,
+  а long-context би ни сложил от грешната страна на
+  <a href="../reference/glossary.bg.html">cost/latency триъгълника</a> при нашия обем заявки.“
+</div>
+
+<p>Забележи: никакво твърдение, че RAG е „най-доброто“. Назовава жертвата (стил, latency), печалбата
+(свежест, проследимост, evolvability) и <em>бизнес</em> силата (седмични документи, Legal, обем).
+Този абзац носи повишение. „Ползвахме RAG, това е модерният подход“ — не носи.</p>
+
+<h2>Провери се</h2>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Кое изречение звучи като архитект, а не като senior developer?</p>
+  <button class="opt">Избрахме Postgres, защото мащабира добре и екипът го познава вече.</button>
+  <button class="opt">Избрахме Postgres, жертвайки write throughput за далеч по-прости ежедневни операции.</button>
+  <button class="opt">Избрахме Postgres, понеже това е най-модерната надеждна база данни днес.</button>
+  <div class="feedback"
+       data-ok="Точно — назовава жертвата (write throughput) и печалбата (операционна простота)."
+       data-no="Архитектът назовава какво е пожертвано. Търси изречението, което казва жертва, не само плюсове."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Какво означава „least-worst architecture“?</p>
+  <button class="opt">Дизайнът, чиито неизбежни недостатъци можеш най-добре да си позволиш.</button>
+  <button class="opt">Най-евтиният възможен дизайн, който текущият ти бюджет би позволил.</button>
+  <button class="opt">Най-новият дизайн, който покрива всяко изискване без никакъв компромис.</button>
+  <div class="feedback"
+       data-ok="Именно — перфектен дизайн няма, затова избираш най-поносимия набор от недостатъци."
+       data-no="Не е за най-евтино или перфектно — всеки дизайн има недостатъци; избираш тези, с които можеш да живееш."></div>
+</div>
+
+<div class="task">
+  <h3>Направи това сега — твоята осезаема победа</h3>
+  <p>Избери <em>реално</em> архитектурно решение от последния месец (AI или не). Напиши едно
+  trade-off изречение по граматиката отгоре:</p>
+  <p><em>„Избрахме ___, жертвайки ___ за ___, защото ___.“</em></p>
+  <p>После ми го изпрати обратно. Ще го подложа на натиск, както би го направил панел за повишение —
+  назована ли е жертвата? „Защото“-то <em>бизнес</em> сила ли е, а не техническо предпочитание? Това е
+  първият ти артефакт за портфолиото; в Урок 2 го превръщаме в пълен ADR с consequences.</p>
+</div>
+
+<div class="ask">
+  <strong>Аз съм твоят учител — питай ме каквото и да е.</strong> Затрудняваш се дали нещо е
+  characteristic или feature? Искаш да моделирам хода върху по-объркано реално решение? Просто питай.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Първоизточник — прочети това следващо</span><br>
+  <strong>Mark Richards &amp; Neal Ford, <em>Fundamentals of Software Architecture</em></strong> —
+  главата за trade-offs и Първия закон.
+  <a href="https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/">O'Reilly</a> ·
+  <a href="https://bagerbach.com/books/fundamentals-of-software-architecture/">безплатни бележки по главите</a>.<br>
+  <span class="muted">2. Gregor Hohpe, <em>The Software Architect Elevator</em> —
+  <a href="https://architectelevator.com/">architectelevator.com</a>.</span>
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Следва:</strong> Урок 2 — превръщане на това изречение в пълен ADR с consequences и
+  fitness function. · <strong>Справка:</strong>
+  <a href="../reference/glossary.bg.html">Речник</a></p>
+  <p class="muted">Курс: Principal Dev → (AI) Software Architect · стъпил на
+  <a href="../MISSION.md">твоята мисия</a>.</p>
+</footer>
+</body>
+</html>

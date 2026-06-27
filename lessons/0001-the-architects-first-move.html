@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1 — The Architect's First Move</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="0001-the-architects-first-move.html">EN</a><a href="0001-the-architects-first-move.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Lesson 01 · The Operating Model</p>
+  <h1>The Architect's First Move</h1>
+  <p class="subtitle">Naming the trade-off out loud — the one sentence that reads as "architect," not "senior developer."</p>
+</header>
+
+<div class="mission">
+  <strong>Why this, first.</strong> You already make strong design calls. The promotion gap isn't
+  better decisions — it's making your reasoning <em>legible and defensible</em> to the people who grant
+  the title. This lesson installs the smallest rep of that skill, and we'll use an <em>AI</em> decision
+  as the worked example so it serves both halves of your mission at once.
+</div>
+
+<p>A senior developer answers <em>"what did you build?"</em>. An architect answers
+<em>"what did you give up, and why was that the right thing to lose?"</em> Same decision — different
+altitude. The whole architect operating model rests on one law:</p>
+
+<p class="keyidea">Everything in software architecture is a trade-off. The job is not to find the best
+architecture — there isn't one — but the <strong>least-worst</strong>: the design whose unavoidable
+downsides you can best afford.<sup><a href="#src">1</a></sup></p>
+
+<p>This reframes your value. You're not the person with the right answer; you're the person who can
+state the <em>cost of every answer</em> in terms leadership cares about. That's what lets you ride the
+<a href="../reference/glossary.html">architect elevator</a> — translating an engine-room decision into
+a board-room consequence.<sup><a href="#src">2</a></sup></p>
+
+<h2>The move, in three parts</h2>
+<p>Take any decision and force it through this shape. It is the seed of an
+<a href="../reference/glossary.html">ADR</a> — we'll grow the full record in Lesson 2.</p>
+
+<table>
+  <tr><th>Part</th><th>Question it answers</th><th>Failure mode if skipped</th></tr>
+  <tr><td><strong>Context</strong></td><td>What business force made this a decision?</td><td>Looks like personal taste</td></tr>
+  <tr><td><strong>Decision</strong></td><td>What did we choose?</td><td>—</td></tr>
+  <tr><td><strong>Trade-off</strong></td><td>What did we deliberately give up?</td><td>Reads as a junior's "best" pick</td></tr>
+</table>
+
+<p>The trade-off line is the whole game. Its grammar:
+<em>"We chose X, trading <strong>[characteristic we sacrificed]</strong> for
+<strong>[characteristic we needed more]</strong>, because <strong>[business reason]</strong>."</em></p>
+
+<h2>Worked example — an AI decision</h2>
+<p>Your team needs an LLM feature grounded in internal docs. Three options:
+<a href="../reference/glossary.html">RAG</a>, <a href="../reference/glossary.html">fine-tuning</a>,
+or stuffing everything into a long context window. A senior dev picks the one they find coolest.
+The architect runs the move:</p>
+
+<div class="note">
+  <span class="label">Architect-grade trade-off statement</span>
+  "We chose <strong>RAG</strong> over fine-tuning, trading <em>answer-style polish and peak latency</em>
+  for <em>freshness, traceability, and lower change-cost</em> — because the docs change weekly and
+  Legal requires us to cite sources. Fine-tuning would re-freeze knowledge we need to keep moving, and
+  long-context would put us on the wrong side of the
+  <a href="../reference/glossary.html">cost/latency triangle</a> at our query volume."
+</div>
+
+<p>Notice: no claim that RAG is "best." It names the sacrifice (style, latency), the win
+(freshness, traceability, evolvability), and the <em>business</em> force (weekly docs, Legal, volume).
+That paragraph is promotable. "We used RAG, it's the modern approach" is not.</p>
+
+<h2>Check yourself</h2>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Which sentence sounds like an architect, not a senior developer?</p>
+  <button class="opt">We picked Postgres because it scales and the team knows it.</button>
+  <button class="opt">We picked Postgres, trading write throughput for far simpler operations daily.</button>
+  <button class="opt">We picked Postgres since it is the most modern reliable database.</button>
+  <div class="feedback"
+       data-ok="Right — it names the sacrifice (write throughput) and the win (operational simplicity)."
+       data-no="An architect names what was given up. Look for the sentence that states a sacrifice, not just upsides."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">What does "least-worst architecture" mean?</p>
+  <button class="opt">The design whose unavoidable downsides you can best afford.</button>
+  <button class="opt">The cheapest design that your current budget will allow.</button>
+  <button class="opt">The newest design that handles every requirement without compromise.</button>
+  <div class="feedback"
+       data-ok="Exactly — there is no perfect design, so you choose the most affordable set of downsides."
+       data-no="It isn't about cheapest or perfect — every design has downsides; you pick the ones you can live with."></div>
+</div>
+
+<div class="task">
+  <h3>Do this now — your tangible win</h3>
+  <p>Pick a <em>real</em> architecture decision you made in the last month (AI or not). Write one
+  trade-off statement using the grammar above:</p>
+  <p><em>"We chose ___, trading ___ for ___, because ___."</em></p>
+  <p>Then paste it back to me. I'll pressure-test it the way a promotion panel would — is the sacrifice
+  named? Is the "because" a <em>business</em> force, not a technical preference? This is your first
+  portfolio artifact; in Lesson 2 we turn it into a full ADR with consequences.</p>
+</div>
+
+<div class="ask">
+  <strong>I'm your teacher — ask me anything.</strong> Stuck on whether something counts as a
+  characteristic vs a feature? Want me to model the move on a messier real decision? Just ask.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Primary source — read this next</span><br>
+  <strong>Mark Richards &amp; Neal Ford, <em>Fundamentals of Software Architecture</em></strong> —
+  Ch. on trade-offs &amp; the First Law.
+  <a href="https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/">O'Reilly</a> ·
+  <a href="https://bagerbach.com/books/fundamentals-of-software-architecture/">free chapter notes</a>.<br>
+  <span class="muted">2. Gregor Hohpe, <em>The Software Architect Elevator</em> —
+  <a href="https://architectelevator.com/">architectelevator.com</a>.</span>
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Next:</strong> Lesson 2 — turning this sentence into a full ADR with consequences &amp;
+  a fitness function. · <strong>Reference:</strong>
+  <a href="../reference/glossary.html">Glossary</a></p>
+  <p class="muted">Course: Principal Dev → (AI) Software Architect · grounded in
+  <a href="../MISSION.md">your mission</a>.</p>
+</footer>
+</body>
+</html>

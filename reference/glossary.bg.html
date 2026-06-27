@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Речник — (AI) Software Architect</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  dl.glossary dt { font-weight: 600; margin-top: 1.4rem; font-size: 1.08rem; }
+  dl.glossary dt .tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--rule); border-radius: 4px; padding: .1em .4em; margin-left: .5rem; vertical-align: middle; }
+  dl.glossary dd { margin: .25rem 0 0; color: var(--soft); }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a href="glossary.html">EN</a><a class="active" href="glossary.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Справка · Канонична терминология</p>
+  <h1>Речник</h1>
+  <p class="subtitle">Общият език за курса (AI) Software Architect. Всеки урок ползва тези термини точно така.</p>
+</header>
+
+<p class="muted">Две групи: <strong>занаятът на архитекта</strong> (решения, trade-offs, governance) и
+<strong>AI-системи</strong>. Смесени нарочно — AI архитектът трябва да владее свободно и двете.
+Техническите термини оставям на английски, защото така ще ги срещаш в практиката и интервютата.</p>
+
+<dl class="glossary">
+
+  <dt>Trade-off <span class="tag">занаят</span></dt>
+  <dd>Предимство, сдвоено с недостатък. <em>Първият закон на софтуерната архитектура</em>:
+  <em>всичко</em> е trade-off. Основната работа на архитекта е да ги анализира, а не да ги елиминира.</dd>
+
+  <dt>Least-worst architecture <span class="tag">занаят</span></dt>
+  <dd>Целта никога не е „най-добрата“ архитектура (такава няма), а тази, чиито недостатъци можеш
+  най-лесно да си позволиш. Да назовеш <em>какво жертваш</em> е белегът на архитекта.</dd>
+
+  <dt>Architecture characteristic <span class="tag">занаят</span></dt>
+  <dd>Нефункционално, системно качество, което дизайнът трябва да достави — scalability, availability,
+  security, evolvability, cost. Наричат ги „-ilities“. Извличат се <em>от бизнес нуждите</em>, не по вкус.
+  Можеш да оптимизираш само няколко; изборът кои именно — това е архитектура.</dd>
+
+  <dt>Architect elevator <span class="tag">занаят</span></dt>
+  <dd>Метафората на Gregor Hohpe: архитектът се движи между <em>борда</em> (стратегия, пари) и
+  <em>машинното</em> (код, системи), превеждайки едното на другото. Влиянието идва от свързването на
+  етажите, не от живеенето на един.</dd>
+
+  <dt>Influence without authority <span class="tag">занаят</span></dt>
+  <dd>Да движиш решения, които нямаш формална власт да наложиш — чрез яснота за trade-offs, бизнес
+  рамка и това да правиш другите по-умни. Определящото умение, което отличава архитекта от senior dev.</dd>
+
+  <dt>ADR — Architecture Decision Record <span class="tag">занаят</span></dt>
+  <dd>Кратък документ за едно значимо решение: неговия <em>context</em>, самото <em>решение</em> и
+  неговите <em>consequences</em>. Улавя <em>защо</em>. Евтин за писане, с нарастваща стойност във времето.</dd>
+
+  <dt>Fitness function <span class="tag">занаят</span></dt>
+  <dd>Автоматизирана проверка (обикновено в CI), която <em>гарантира</em>, че архитектурно решение остава
+  в сила във времето. „ADR документира решението; fitness function го налага.“ Хваща drift преди продукция.</dd>
+
+  <dt>C4 model <span class="tag">занаят</span></dt>
+  <dd>Йерархични диаграми на четири нива на „мащабиране“ — <em>Context, Container, Component, Code</em>.
+  Показва <em>какво</em>; сдвоява се с ADR (<em>защо</em>) и заедно дават навигируем граф на архитектурата.</dd>
+
+  <dt>Paved road <span class="tag">занаят</span></dt>
+  <dd>Одобрен, поддържан път по подразбиране (patterns, инструменти, guardrails), който прави безопасния
+  избор лесния избор. Лостът на архитекта да мащабира добрите решения, без да ревюира всяко едно.</dd>
+
+  <dt>RAG — Retrieval-Augmented Generation <span class="tag">ai</span></dt>
+  <dd>Подаване на релевантен извлечен контекст към LLM по време на заявка, вместо знанието да се „зашива“
+  в теглата. Стандартният pattern за заземяване на отговорите в собствените ти данни.</dd>
+
+  <dt>Fine-tuning <span class="tag">ai</span></dt>
+  <dd>Донастройване на теглата на модел върху данни от задачата/домейна. Разменя предварителна цена и
+  скованост за контрол над поведение/стил. Архитектурно: RAG vs fine-tune vs long-context е класически trade-off.</dd>
+
+  <dt>Agentic / Adaptive RAG <span class="tag">ai</span></dt>
+  <dd><em>Agentic:</em> LLM-ът сам управлява своя retrieval workflow (tools, много стъпки).
+  <em>Adaptive:</em> router класифицира всяка заявка по сложност и я праща към най-евтината стратегия,
+  която ще свърши работа — pattern-ът, който прави продукцията икономически жизнеспособна.</dd>
+
+  <dt>Plan-then-Execute <span class="tag">ai</span></dt>
+  <dd>Агентна архитектура, която планира цялата задача преди да действа — за предвидимост и устойчивост
+  срещу control-flow hijacking. Препоръчван default за всеки нетривиален агент с няколко tools.</dd>
+
+  <dt>Guardrails <span class="tag">ai</span></dt>
+  <dd>Контроли между потребителя и модела (и модела и tools), които блокират опасен вход/изход —
+  халюцинации, токсичност, injection, действия извън политиката. <em>Архитектурна</em> грижа, не добавка накрая.</dd>
+
+  <dt>Eval <span class="tag">ai</span></dt>
+  <dd>Систематично измерване на качество, безопасност и регресия на AI система — offline (датасети) и
+  online (продукция). За AI системи eval+observability слоят е носеща архитектура, като тестовете.</dd>
+
+  <dt>Quality / cost / latency триъгълник <span class="tag">ai</span></dt>
+  <dd>Главният trade-off на AI архитекта, следен <em>непрекъснато</em>: по-добри отговори vs $ на заявка vs
+  време за отговор. Всяко AI дизайн решение мести точка вътре в този триъгълник.</dd>
+
+</dl>
+
+<footer class="lesson-footer">
+  <p>← Обратно към <a href="../lessons/0001-the-architects-first-move.bg.html">Урок 1</a> ·
+  виж също <a href="../RESOURCES.md">Ресурси</a></p>
+  <p class="muted">Жив документ — термините се добавят, щом уроците ги въведат.</p>
+</footer>
+</body>
+</html>
