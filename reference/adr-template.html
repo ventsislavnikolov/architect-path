@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR Template — (AI) Software Architect</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .field { border-left: 3px solid var(--rule); padding: .2rem 0 .2rem 1rem; margin: 1.1rem 0; }
+  .field h3 { margin: 0 0 .2rem; }
+  .field .hint { color: var(--faint); font-size: .92rem; font-style: italic; }
+  .status-row span { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; border: 1px solid var(--rule); border-radius: 4px; padding: .15em .5em; margin-right: .3rem; }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="adr-template.html">EN</a><a href="adr-template.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Reference · Copy-paste template</p>
+  <h1>ADR Template</h1>
+  <p class="subtitle">The skeleton of every Architecture Decision Record. Keep it one page. Capture the <em>why</em>.</p>
+</header>
+
+<p>Source the structure from Michael Nygard's original and the
+<a href="https://adr.github.io/">ADR community</a>. The shape below is the durable minimum.</p>
+
+<div class="field">
+  <h3>ADR-NNNN: &lt;short decision in a noun phrase&gt;</h3>
+  <p class="hint">Number sequentially. Title = the decision, not the problem. e.g. "ADR-0007: React as standard frontend library".</p>
+</div>
+
+<div class="field">
+  <h3>Status</h3>
+  <p class="status-row"><span>Proposed</span><span>Accepted</span><span>Superseded by ADR-NNNN</span><span>Deprecated</span></p>
+  <p class="hint">ADRs are immutable. You don't edit a decision — you supersede it with a new ADR and link them.</p>
+</div>
+
+<div class="field">
+  <h3>Context</h3>
+  <p class="hint">The forces in play — <strong>business and technical</strong> — that make this a decision worth recording. What's true now? What pressure forces a choice? No solution yet.</p>
+</div>
+
+<div class="field">
+  <h3>Decision</h3>
+  <p class="hint">Active voice: "We will …". One clear choice. This is the load-bearing line.</p>
+</div>
+
+<div class="field">
+  <h3>Options considered</h3>
+  <p class="hint">The serious alternatives, each with its trade-off. Proves you saw the landscape — and that the decision was a judgement, not a default. <em>(Optional but high-value for a promotion portfolio.)</em></p>
+</div>
+
+<div class="field">
+  <h3>Consequences</h3>
+  <p class="hint">What becomes true after this decision — <strong>positive, negative, and neutral</strong>. The <em>negative</em> ones are the sacrifices you named in your trade-off sentence. This section is where architects prove honesty. Never leave it one-sided.</p>
+</div>
+
+<div class="field">
+  <h3>Enforcement / fitness function <span class="muted">(extension)</span></h3>
+  <p class="hint">How will this decision be <em>assured</em> over time? An ADR documents; a <a href="glossary.html">fitness function</a> enforces. Name the automated check (or write "manual review" honestly).</p>
+</div>
+
+<div class="note">
+  <span class="label">Rules of thumb</span>
+  One decision per ADR · one page · immutable (supersede, don't edit) · store in-repo next to the code
+  (<code>/docs/adr/</code>) · link to <a href="glossary.html">C4</a> diagrams for the "what".
+</div>
+
+<footer class="lesson-footer">
+  <p>← Used in <a href="../lessons/0002-from-sentence-to-adr.html">Lesson 2</a> ·
+  See <a href="glossary.html">Glossary</a></p>
+</footer>
+</body>
+</html>

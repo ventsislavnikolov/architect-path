@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2 — From Sentence to ADR</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .adr { border: 1px solid var(--rule); border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.6rem 0; background: #fffefb; }
+  .adr h4 { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 1.1rem 0 .3rem; }
+  .adr h4:first-child { margin-top: 0; }
+  .adr .title { font-size: 1.15rem; font-weight: 600; }
+  .adr ul { margin: .3rem 0; }
+  .pos::before { content: "＋ "; color: var(--good); font-weight: 700; }
+  .neg::before { content: "− "; color: var(--bad); font-weight: 700; }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="0002-from-sentence-to-adr.html">EN</a><a href="0002-from-sentence-to-adr.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Lesson 02 · The Operating Model</p>
+  <h1>From Sentence to ADR</h1>
+  <p class="subtitle">Growing your trade-off sentence into a durable, promotable record — and a check that keeps it true.</p>
+</header>
+
+<div class="mission">
+  <strong>Why this, now.</strong> Your trade-off sentence (<a href="0001-the-architects-first-move.html">Lesson 1</a>)
+  is a thought. An <strong>ADR</strong> is the <em>artifact</em> — the thing you point a promotion panel to:
+  "here is a decision I owned, with the cost named and the consequences honest." A folder of good ADRs
+  <em>is</em> the visible influence the Architect title rewards.
+</div>
+
+<p>In Lesson 1 you wrote: <em>"We chose React, trading frontend-stack consistency for ecosystem &amp;
+mobile reuse, because hiring + React Native + community."</em> One sentence. Now we give it a home with
+three more moves — and the section that separates honest architects from cheerleaders: <strong>Consequences</strong>.</p>
+
+<p class="keyidea">An ADR captures one decision's <em>context</em>, the <em>decision</em>, and its
+<em>consequences</em> — the <strong>why</strong>, written once, read for years.<sup><a href="#src">1</a></sup>
+The trade-off sentence is the seed; the Consequences section is where its downsides finally get named in full.</p>
+
+<h2>The same decision, as a full ADR</h2>
+<p>Built from the <a href="../reference/adr-template.html">ADR template</a>. Notice the negatives are not hidden — they're the point.</p>
+
+<div class="adr">
+  <h4>Title</h4>
+  <p class="title">ADR-0007: React as the standard frontend library</p>
+  <h4>Status</h4>
+  <p>Accepted</p>
+  <h4>Context</h4>
+  <p>We run several frontends on Ember and Angular. Hiring for both is slow and the talent pool is
+  shrinking. A mobile app is on the roadmap. We need a frontend default that lowers hiring cost,
+  de-risks longevity, and gives us a credible mobile path — without rewriting everything at once.</p>
+  <h4>Decision</h4>
+  <p>We will adopt <strong>React</strong> as the standard library for all <em>new</em> frontend work,
+  and as the migration target for existing Ember/Angular apps when they are next touched substantially.</p>
+  <h4>Options considered</h4>
+  <ul>
+    <li><strong>Stay on Angular/Ember</strong> — zero migration, but worsening hiring &amp; no shared mobile path.</li>
+    <li><strong>React</strong> — largest talent pool + React Native reuse; but it's a library, not a framework.</li>
+    <li><strong>Vue/Svelte</strong> — strong DX, smaller hiring pool, weaker native-mobile story.</li>
+  </ul>
+  <h4>Consequences</h4>
+  <ul>
+    <li class="pos">Larger talent pool → faster, cheaper hiring.</li>
+    <li class="pos">React Native enables web→mobile skill &amp; code reuse → lower mobile-strategy cost.</li>
+    <li class="pos">Large ecosystem lowers build-vs-buy cost and longevity risk.</li>
+    <li class="neg">We now run <em>three</em> frontend stacks until legacy is migrated → fragmented expertise, larger maintenance surface.</li>
+    <li class="neg">React is a library: routing, state, data-fetching are <em>our</em> decisions → risk of per-team inconsistency.</li>
+    <li class="neg"><em>Mitigation:</em> ship a <a href="../reference/glossary.html">paved-road</a> React starter (approved router, state, lint) so the safe choice is the default choice.</li>
+  </ul>
+</div>
+
+<p>This is promotable. A panel reading it sees a person who owned a decision, surveyed alternatives,
+and was <em>honest about the cost</em> — then mitigated it. That last part is architect-grade.</p>
+
+<h2>Make it stick: the fitness function</h2>
+<p>An ADR <em>documents</em> the decision. Six months later, someone spins up a new Angular app and the
+decision quietly rots. A <a href="../reference/glossary.html">fitness function</a> <em>enforces</em> it —
+an automated check in CI.<sup><a href="#src">2</a></sup> For ADR-0007:</p>
+
+<pre><code># CI: block NEW frontend packages on legacy stacks
+# "No new Angular/Ember apps" — the decision, as code.
+for pkg in $(git diff --name-only origin/main | grep 'package.json'); do
+  if grep -qE '"@angular/core"|"ember-source"' "$pkg" \
+     && is_new_package "$pkg"; then
+    echo "✗ ADR-0007: new frontends must use React. See docs/adr/0007.md"
+    exit 1
+  fi
+done</code></pre>
+
+<p>Now the decision can't drift silently — the build speaks for it. That is governance without you
+standing over anyone's shoulder: the essence of <a href="0001-the-architects-first-move.html">influence
+without authority</a>.</p>
+
+<h2>Check yourself</h2>
+
+<div class="quiz" data-answer="0">
+  <p class="q">What does an ADR primarily capture?</p>
+  <button class="opt">The reasoning and consequences behind one significant architectural decision.</button>
+  <button class="opt">The exact source code that implements the chosen architectural decision.</button>
+  <button class="opt">The team schedule and budget approved for the architectural decision.</button>
+  <div class="feedback"
+       data-ok="Right — an ADR records the why: context, the decision, and its consequences."
+       data-no="An ADR isn't code or a plan — it captures the reasoning and consequences of a decision."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">What is a fitness function's job?</p>
+  <button class="opt">Automatically enforce an architectural decision so it cannot drift.</button>
+  <button class="opt">Manually document an architectural decision so others can read.</button>
+  <button class="opt">Visually diagram an architectural decision so teams can understand.</button>
+  <div class="feedback"
+       data-ok="Exactly — it's an automated check that assures the decision stays true over time."
+       data-no="Documenting is the ADR's job; a fitness function automatically enforces the decision in CI."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Which part of an ADR holds the sacrifice you named in Lesson 1?</p>
+  <button class="opt">The Context section, describing the business forces at play.</button>
+  <button class="opt">The Consequences section, listing the negative outcomes too.</button>
+  <button class="opt">The Decision section, stating the single choice made.</button>
+  <div class="feedback"
+       data-ok="Yes — the negative consequences are exactly the downsides your trade-off sentence named."
+       data-no="The sacrifice lives in Consequences — specifically the negative outcomes, not Context or Decision."></div>
+</div>
+
+<div class="task">
+  <h3>Do this now — your tangible win</h3>
+  <p>Take the React decision (or your own from Lesson 1) and write a full ADR using the
+  <a href="../reference/adr-template.html">template</a>. Minimum bar:</p>
+  <ul>
+    <li><strong>≥ 2 options</strong> considered, each with its trade-off.</li>
+    <li><strong>≥ 2 negative consequences</strong> named honestly (this is graded hardest).</li>
+    <li>One <strong>fitness function</strong> idea — even one sentence: "we'll enforce this by…".</li>
+  </ul>
+  <p>Paste it back. I'll review it as a panel would — is the cost honest, are alternatives real,
+  is the decision <em>enforceable</em>? This ADR is your second portfolio artifact.</p>
+</div>
+
+<div class="ask">
+  <strong>I'm your teacher — ask me anything.</strong> Want a real fitness function for <em>your</em>
+  CI stack? Unsure how granular a decision should be to deserve an ADR? Ask.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Primary source — read this next</span><br>
+  <strong>ADR community &amp; Michael Nygard's original</strong> —
+  <a href="https://adr.github.io/">adr.github.io</a> ·
+  <a href="https://github.com/architecture-decision-record/architecture-decision-record">examples &amp; templates</a>.<br>
+  <span class="muted">2. Fitness functions — Ford, Parsons &amp; Kua, <em>Building Evolutionary Architecture</em>.</span>
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Next:</strong> Lesson 3 — the Architect Elevator: turning these artifacts into board-room
+  influence. · <strong>Reference:</strong>
+  <a href="../reference/adr-template.html">ADR template</a> ·
+  <a href="../reference/glossary.html">Glossary</a></p>
+  <p><strong>Prev:</strong> <a href="0001-the-architects-first-move.html">Lesson 1 — The Architect's First Move</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR Template — (AI) Software Architect</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .field { border-left: 3px solid var(--rule); padding: .2rem 0 .2rem 1rem; margin: 1.1rem 0; }
+  .field h3 { margin: 0 0 .2rem; }
+  .field .hint { color: var(--faint); font-size: .92rem; font-style: italic; }
+  .status-row span { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; border: 1px solid var(--rule); border-radius: 4px; padding: .15em .5em; margin-right: .3rem; }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a href="adr-template.html">EN</a><a class="active" href="adr-template.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Справка · Template за копиране</p>
+  <h1>ADR Template</h1>
+  <p class="subtitle">Скелетът на всеки Architecture Decision Record. Дръж го на една страница. Улавяй <em>защо</em>-то.</p>
+</header>
+
+<p>Структурата идва от оригинала на Michael Nygard и
+<a href="https://adr.github.io/">ADR общността</a>. Долната форма е трайният минимум.</p>
+
+<div class="field">
+  <h3>ADR-NNNN: &lt;кратко решение като съществително словосъчетание&gt;</h3>
+  <p class="hint">Номерирай последователно. Заглавието = решението, не проблемът. Напр. „ADR-0007: React като стандартна frontend library“.</p>
+</div>
+
+<div class="field">
+  <h3>Status</h3>
+  <p class="status-row"><span>Proposed</span><span>Accepted</span><span>Superseded by ADR-NNNN</span><span>Deprecated</span></p>
+  <p class="hint">ADR-ите са immutable. Не редактираш решение — заместваш го (supersede) с нов ADR и ги свързваш.</p>
+</div>
+
+<div class="field">
+  <h3>Context</h3>
+  <p class="hint">Силите в играта — <strong>бизнес и технически</strong> — които правят това решение достойно за запис. Какво е вярно сега? Какъв натиск налага избор? Още без решение.</p>
+</div>
+
+<div class="field">
+  <h3>Decision</h3>
+  <p class="hint">Активен залог: „Ще …“. Един ясен избор. Това е носещият ред.</p>
+</div>
+
+<div class="field">
+  <h3>Options considered</h3>
+  <p class="hint">Сериозните алтернативи, всяка със своя trade-off. Доказва, че си видял терена — и че решението е преценка, не default. <em>(По избор, но висока стойност за портфолио за повишение.)</em></p>
+</div>
+
+<div class="field">
+  <h3>Consequences</h3>
+  <p class="hint">Какво става вярно след решението — <strong>позитивни, негативни и неутрални</strong>. <em>Негативните</em> са жертвите, които назова в trade-off изречението. Тази секция е мястото, където архитектите доказват честност. Никога не я оставяй едностранна.</p>
+</div>
+
+<div class="field">
+  <h3>Enforcement / fitness function <span class="muted">(разширение)</span></h3>
+  <p class="hint">Как ще се <em>гарантира</em> решението във времето? ADR документира; <a href="glossary.bg.html">fitness function</a> налага. Назови автоматичната проверка (или честно напиши „ръчно ревю“).</p>
+</div>
+
+<div class="note">
+  <span class="label">Правила на палеца</span>
+  Едно решение на ADR · една страница · immutable (заместваш, не редактираш) · пази го в репото до
+  кода (<code>/docs/adr/</code>) · свържи с <a href="glossary.bg.html">C4</a> диаграми за „какво“-то.
+</div>
+
+<footer class="lesson-footer">
+  <p>← Ползва се в <a href="../lessons/0002-from-sentence-to-adr.bg.html">Урок 2</a> ·
+  виж <a href="glossary.bg.html">Речник</a></p>
+</footer>
+</body>
+</html>

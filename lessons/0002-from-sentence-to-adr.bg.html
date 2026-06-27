@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 2 — От изречение към ADR</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .adr { border: 1px solid var(--rule); border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.6rem 0; background: #fffefb; }
+  .adr h4 { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 1.1rem 0 .3rem; }
+  .adr h4:first-child { margin-top: 0; }
+  .adr .title { font-size: 1.15rem; font-weight: 600; }
+  .adr ul { margin: .3rem 0; }
+  .pos::before { content: "＋ "; color: var(--good); font-weight: 700; }
+  .neg::before { content: "− "; color: var(--bad); font-weight: 700; }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a href="0002-from-sentence-to-adr.html">EN</a><a class="active" href="0002-from-sentence-to-adr.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Урок 02 · Операционният модел</p>
+  <h1>От изречение към ADR</h1>
+  <p class="subtitle">Превръщане на trade-off изречението в траен, „повишаващ“ запис — и проверка, която го пази жив.</p>
+</header>
+
+<div class="mission">
+  <strong>Защо точно сега.</strong> Trade-off изречението ти (<a href="0001-the-architects-first-move.bg.html">Урок 1</a>)
+  е мисъл. Един <strong>ADR</strong> е <em>артефактът</em> — нещото, към което сочиш панела за повишение:
+  „ето решение, което притежавах, с назована цена и честни последствия.“ Папка с добри ADR-и
+  <em>е</em> видимото влияние, което титлата Архитект награждава.
+</div>
+
+<p>В Урок 1 написа: <em>„Избрахме React, жертвайки еднаквостта на frontend стека за ecosystem и
+мобилно преизползване, защото hiring + React Native + community.“</em> Едно изречение. Сега му даваме
+дом с още три хода — и секцията, която дели честните архитекти от мажоретките: <strong>Consequences</strong>.</p>
+
+<p class="keyidea">ADR улавя <em>context</em>-а на едно решение, самото <em>решение</em> и неговите
+<em>consequences</em> — <strong>защо</strong>-то, написано веднъж, четено с години.<sup><a href="#src">1</a></sup>
+Trade-off изречението е семето; секцията Consequences е мястото, където недостатъците най-сетне се назовават изцяло.</p>
+
+<h2>Същото решение, като пълен ADR</h2>
+<p>Построен по <a href="../reference/adr-template.bg.html">ADR template</a>. Забележи — негативите не са скрити, те са целта.</p>
+
+<div class="adr">
+  <h4>Title</h4>
+  <p class="title">ADR-0007: React като стандартна frontend library</p>
+  <h4>Status</h4>
+  <p>Accepted</p>
+  <h4>Context</h4>
+  <p>Имаме няколко frontend-а на Ember и Angular. Наемането и за двата е бавно, а talent pool-ът се
+  свива. Мобилен app е в roadmap-а. Трябва ни frontend default, който сваля цената на наемане,
+  намалява риска от остаряване и дава достоверен мобилен път — без да пренаписваме всичко наведнъж.</p>
+  <h4>Decision</h4>
+  <p>Ще приемем <strong>React</strong> като стандартна library за всяка <em>нова</em> frontend работа
+  и като migration цел за съществуващите Ember/Angular app-и, когато следващо ги пипаме съществено.</p>
+  <h4>Options considered</h4>
+  <ul>
+    <li><strong>Оставаме на Angular/Ember</strong> — нула migration, но влошаващ се hiring и без общ мобилен път.</li>
+    <li><strong>React</strong> — най-голям talent pool + React Native преизползване; но е library, не framework.</li>
+    <li><strong>Vue/Svelte</strong> — силен DX, по-малък hiring pool, по-слаба native-mobile история.</li>
+  </ul>
+  <h4>Consequences</h4>
+  <ul>
+    <li class="pos">По-голям talent pool → по-бързо, по-евтино наемане.</li>
+    <li class="pos">React Native дава web→mobile преизползване на умения и код → по-ниска цена на мобилна стратегия.</li>
+    <li class="pos">Голям ecosystem сваля build-vs-buy цената и риска от остаряване.</li>
+    <li class="neg">Отсега въртим <em>три</em> frontend стека, докато legacy се мигрира → фрагментирана експертиза, по-голяма maintenance площ.</li>
+    <li class="neg">React е library: routing, state, data-fetching са <em>наши</em> решения → риск от разнобой между екипите.</li>
+    <li class="neg"><em>Mitigation:</em> пускаме <a href="../reference/glossary.bg.html">paved-road</a> React starter (одобрени router, state, lint), за да е безопасният избор и default-ният.</li>
+  </ul>
+</div>
+
+<p>Това носи повишение. Панел, който го чете, вижда човек, който е притежавал решение, прегледал е
+алтернативи и е бил <em>честен за цената</em> — после я е смекчил. Тази последна част е на архитектурно ниво.</p>
+
+<h2>Да залепне: fitness function</h2>
+<p>ADR <em>документира</em> решението. Шест месеца по-късно някой вдига нов Angular app и решението тихо
+изгнива. Една <a href="../reference/glossary.bg.html">fitness function</a> го <em>налага</em> —
+автоматична проверка в CI.<sup><a href="#src">2</a></sup> За ADR-0007:</p>
+
+<pre><code># CI: блокирай НОВИ frontend пакети на legacy стекове
+# „Без нови Angular/Ember app-и“ — решението, като код.
+for pkg in $(git diff --name-only origin/main | grep 'package.json'); do
+  if grep -qE '"@angular/core"|"ember-source"' "$pkg" \
+     && is_new_package "$pkg"; then
+    echo "✗ ADR-0007: новите frontend-и трябва да са React. Виж docs/adr/0007.md"
+    exit 1
+  fi
+done</code></pre>
+
+<p>Сега решението не може да дрейфне тихо — build-ът говори за него. Това е governance, без да стоиш
+зад гърба на никого: същината на <a href="0001-the-architects-first-move.bg.html">influence без
+authority</a>.</p>
+
+<h2>Провери се</h2>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Какво улавя основно един ADR?</p>
+  <button class="opt">Разсъжденията и последствията зад едно значимо архитектурно решение.</button>
+  <button class="opt">Точния изходен код, който реализира избраното архитектурно решение.</button>
+  <button class="opt">Графика и бюджета, одобрени за избраното архитектурно решение.</button>
+  <div class="feedback"
+       data-ok="Точно — ADR записва защо-то: context, решението и неговите consequences."
+       data-no="ADR не е код, нито план — улавя разсъжденията и последствията на решение."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Каква е работата на fitness function?</p>
+  <button class="opt">Автоматично налага архитектурно решение, за да не дрейфне.</button>
+  <button class="opt">Ръчно документира архитектурно решение, за да го четат.</button>
+  <button class="opt">Визуално диаграмира архитектурно решение, за да го разбират.</button>
+  <div class="feedback"
+       data-ok="Именно — автоматична проверка, която гарантира, че решението остава вярно във времето."
+       data-no="Документирането е работа на ADR; fitness function автоматично налага решението в CI."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Коя част от ADR държи жертвата от Урок 1?</p>
+  <button class="opt">Секцията Context, описваща бизнес силите в играта тук.</button>
+  <button class="opt">Секцията Consequences, изброяваща също и негативните последствия накрая.</button>
+  <button class="opt">Секцията Decision, заявяваща единствения направен в нея избор.</button>
+  <div class="feedback"
+       data-ok="Да — негативните consequences са точно недостатъците, които trade-off изречението назова."
+       data-no="Жертвата живее в Consequences — конкретно негативните последствия, не Context или Decision."></div>
+</div>
+
+<div class="task">
+  <h3>Направи това сега — твоята осезаема победа</h3>
+  <p>Вземи React решението (или твоето от Урок 1) и напиши пълен ADR по
+  <a href="../reference/adr-template.bg.html">template-а</a>. Минимална летва:</p>
+  <ul>
+    <li><strong>≥ 2 options</strong> разгледани, всеки със своя trade-off.</li>
+    <li><strong>≥ 2 негативни consequences</strong>, назовани честно (това се оценява най-строго).</li>
+    <li>Една идея за <strong>fitness function</strong> — дори едно изречение: „ще го налагаме чрез…“.</li>
+  </ul>
+  <p>Изпрати го обратно. Ще го ревюирам като панел — честна ли е цената, реални ли са алтернативите,
+  <em>наложимо</em> ли е решението? Този ADR е вторият ти артефакт за портфолиото.</p>
+</div>
+
+<div class="ask">
+  <strong>Аз съм твоят учител — питай ме каквото и да е.</strong> Искаш реална fitness function за
+  <em>твоя</em> CI стек? Не си сигурен колко гранулирано трябва да е решение, за да заслужи ADR? Питай.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Първоизточник — прочети това следващо</span><br>
+  <strong>ADR общността и оригиналът на Michael Nygard</strong> —
+  <a href="https://adr.github.io/">adr.github.io</a> ·
+  <a href="https://github.com/architecture-decision-record/architecture-decision-record">примери и template-и</a>.<br>
+  <span class="muted">2. Fitness functions — Ford, Parsons &amp; Kua, <em>Building Evolutionary Architecture</em>.</span>
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Следва:</strong> Урок 3 — Architect Elevator: превръщане на тези артефакти във влияние в
+  борда. · <strong>Справка:</strong>
+  <a href="../reference/adr-template.bg.html">ADR template</a> ·
+  <a href="../reference/glossary.bg.html">Речник</a></p>
+  <p><strong>Назад:</strong> <a href="0001-the-architects-first-move.bg.html">Урок 1 — Първият ход на архитекта</a></p>
+</footer>
+</body>
+</html>
