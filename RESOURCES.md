@@ -19,6 +19,15 @@ High-trust resources grounding the lessons. Tier: ⭐ = primary source (read/wat
 - **Software Architecture: The Hard Parts** — Ford, Richards, Sadalage, Dehghani.
   Modern trade-off analysis for distributed systems. https://www.amazon.com/Software-Architecture-Trade-Off-Distributed-Architectures/dp/1492086894
 
+## Design canon (judgment)
+- ⭐ **A Philosophy of Software Design** — John Ousterhout. Complexity is the enemy; deep vs shallow
+  modules; information hiding; change amplification & cognitive load.
+  https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/ ·
+  notes: https://bagerbach.com/books/a-philosophy-of-software-design/
+- ⭐ **The Pragmatic Programmer** — Hunt & Thomas. ETC, DRY, orthogonality, tracer bullets,
+  broken windows. Tips: https://pragprog.com/tips/ ·
+  summary: https://github.com/HugoMatilla/The-Pragmatic-Programmer
+
 ## Documenting & governing decisions
 - ⭐ **ADRs — the home page & ecosystem** — https://adr.github.io/
 - **ADR examples & templates (Joel Parker Henderson)** — https://github.com/architecture-decision-record/architecture-decision-record

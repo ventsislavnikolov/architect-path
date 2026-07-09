@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3 — Design Wisdom: Two Classics</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .book { border-left: 3px solid var(--accent); padding: .3rem 0 .3rem 1.1rem; margin: 1.4rem 0; }
+  .book .meta { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--faint); }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 40rem) { .twocol { grid-template-columns: 1fr; } }
+  .principle { border: 1px solid var(--rule); border-radius: 6px; padding: .7rem .9rem; }
+  .principle h4 { margin: 0 0 .2rem; font-size: .98rem; }
+  .principle p { margin: 0; font-size: .9rem; color: var(--soft); }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="0003-design-wisdom-two-classics.html">EN</a><a href="0003-design-wisdom-two-classics.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Lesson 03 · Design Judgment</p>
+  <h1>Design Wisdom: Two Classics</h1>
+  <p class="subtitle">The vocabulary of complexity, depth, and change — from Ousterhout and the Pragmatic Programmers.</p>
+</header>
+
+<div class="mission">
+  <strong>Why this, now.</strong> "Less coding, more design" is one of your drivers. An architect's edge
+  isn't syntax — it's <em>design judgment</em>: seeing complexity before it metastasizes, and shaping
+  modules that stay easy to change. These two books are the canon. This lesson builds the recall so the
+  principles fire <em>in the moment</em> — in a design review, or defending an <a href="0002-from-sentence-to-adr.html">ADR</a>.
+</div>
+
+<h2>Book 1 — <em>A Philosophy of Software Design</em></h2>
+<div class="book">
+  <p class="meta">John Ousterhout · Stanford</p>
+  <p>One thesis: <strong>complexity is the enemy</strong>, and nearly every other rule exists to manage
+  it.<sup><a href="#src">1</a></sup> Complexity is anything that makes a system hard to understand or
+  change. It shows up as two symptoms: <em>change amplification</em> (a simple change touches many
+  places) and <em>cognitive load</em> (you must hold too much in your head).</p>
+  <p>His central tool is the <strong>deep module</strong>: a <em>simple interface</em> over a
+  <em>powerful, complex implementation</em>. The interface is the cost you pay; the functionality is the
+  value you get. A <strong>shallow module</strong> inverts that — a fat interface for little payoff.
+  The mechanism that makes modules deep is <strong>information hiding</strong>: bury the complexity so
+  callers see only an abstraction.</p>
+</div>
+
+<h2>Book 2 — <em>The Pragmatic Programmer</em></h2>
+<div class="book">
+  <p class="meta">Andrew Hunt &amp; David Thomas</p>
+  <p>Its unifying value is <strong>ETC — Easy To Change</strong>: good design is design that's easy to
+  change; every other tip is a special case.<sup><a href="#src">2</a></sup></p>
+  <div class="twocol">
+    <div class="principle"><h4>DRY</h4><p>Every piece of knowledge has one single, authoritative representation. The enemy isn't typing twice — it's forgetting to update all copies.</p></div>
+    <div class="principle"><h4>Orthogonality</h4><p>Independence: a change in one thing doesn't ripple to others. Write "shy" code that does one job and ignores the rest.</p></div>
+    <div class="principle"><h4>Tracer bullets</h4><p>A thin but <em>real</em>, end-to-end slice through every layer. Unlike a prototype, it's kept and grown — you aim by seeing where it lands.</p></div>
+    <div class="principle"><h4>Broken windows</h4><p>Fix small visible flaws fast. Left alone, visible neglect signals "nobody cares" and decay accelerates across the codebase.</p></div>
+  </div>
+</div>
+
+<p class="keyidea">Both books converge on one architect instinct: manage complexity so the system stays
+<strong>easy to change</strong> — deep modules that hide it, orthogonal parts that contain it, and
+single sources of truth that stop it multiplying.</p>
+
+<h2>Retrieval practice</h2>
+<p class="muted">Questions are interleaved between the two books on purpose — mixing is harder, and that difficulty is what builds durable memory.</p>
+
+<div class="quiz" data-answer="1">
+  <p class="q">What defines a "deep" module?</p>
+  <button class="opt">A simple interface exposing a small, trivial implementation inside.</button>
+  <button class="opt">A simple interface hiding a powerful, complex implementation inside.</button>
+  <button class="opt">A complex interface wrapping a powerful, complex implementation inside.</button>
+  <div class="feedback" data-ok="Right — small interface, large hidden functionality. Maximum value, minimum cost."
+       data-no="Depth = simple interface over powerful, hidden implementation. Not trivial, and not a complex interface."></div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p class="q">DRY says every piece of knowledge should have:</p>
+  <button class="opt">Two independent, redundant, synchronized representations within the whole system.</button>
+  <button class="opt">Many flexible, duplicated, convenient representations within the whole system.</button>
+  <button class="opt">One single, unambiguous, authoritative representation within the whole system.</button>
+  <div class="feedback" data-ok="Exactly — one authoritative source. Duplication risks forgetting a copy on change."
+       data-no="DRY demands a single authoritative representation — not redundant or duplicated copies."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">In Ousterhout's view, the enemy of good design is:</p>
+  <button class="opt">Complexity — the accumulated difficulty of understanding and changing code.</button>
+  <button class="opt">Inefficiency — the wasted cycles from slow and unoptimized code.</button>
+  <button class="opt">Incompleteness — the missing features users still expect from code.</button>
+  <div class="feedback" data-ok="Yes — complexity is the master problem; most other principles exist to fight it."
+       data-no="Ousterhout names complexity as the enemy — not performance or missing features."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Two components are orthogonal when:</p>
+  <button class="opt">Changing one forces updating the other component as well.</button>
+  <button class="opt">Changing one has no effect on the other component.</button>
+  <button class="opt">Changing one always improves upon the other component too.</button>
+  <div class="feedback" data-ok="Right — orthogonal parts are independent; changes stay contained."
+       data-no="Orthogonality means independence: changing one has no effect on the other."></div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p class="q">Complexity shows up as change amplification and:</p>
+  <button class="opt">Runtime latency — needing to wait too long for results.</button>
+  <button class="opt">Memory pressure — needing to store too much at once.</button>
+  <button class="opt">Cognitive load — needing to know too much to work.</button>
+  <div class="feedback" data-ok="Exactly — the two symptoms are change amplification and cognitive load."
+       data-no="The second symptom is cognitive load — how much you must know to make a change."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Unlike a throwaway prototype, a tracer bullet is:</p>
+  <button class="opt">Thin but real production code spanning every system layer.</button>
+  <button class="opt">Thick and fake throwaway code mocking every system layer.</button>
+  <button class="opt">Thin and fake temporary code skipping every system layer.</button>
+  <div class="feedback" data-ok="Right — thin, real, end-to-end, and kept. A prototype is thrown away; a tracer bullet grows."
+       data-no="A tracer bullet is thin but real production code, end-to-end — not fake or throwaway."></div>
+</div>
+
+<div class="task">
+  <h3>Do this now — your tangible win</h3>
+  <p>Pick one module or service you own. In three sentences:</p>
+  <ol>
+    <li>Is it <strong>deep or shallow</strong>? (Compare its interface size to the functionality it delivers.)</li>
+    <li>Name one bit of complexity it <em>leaks</em> to callers that it could hide.</li>
+    <li>State one change that would make it <strong>easier to change</strong> (ETC) — deepen, orthogonalize, or de-duplicate.</li>
+  </ol>
+  <p>Paste it back. I'll push on whether it's truly deep, or shallow wearing a nice name — the exact
+  judgment a design-review panel watches for.</p>
+</div>
+
+<div class="ask">
+  <strong>I'm your teacher — ask me anything.</strong> Want the "unknown unknowns" idea from Ousterhout,
+  or how DRY and orthogonality can conflict? Ask, and I'll spin up a focused follow-up.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Primary sources — read these</span><br>
+  1. <strong>John Ousterhout, <em>A Philosophy of Software Design</em></strong> —
+  <a href="https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/">review &amp; overview</a> ·
+  <a href="https://bagerbach.com/books/a-philosophy-of-software-design/">chapter notes</a>.<br>
+  2. <strong>Hunt &amp; Thomas, <em>The Pragmatic Programmer</em></strong> —
+  <a href="https://pragprog.com/tips/">the tips list</a> ·
+  <a href="https://github.com/HugoMatilla/The-Pragmatic-Programmer">summary</a>.
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Next:</strong> Lesson 4 — the Architect Elevator: artifacts → board-room influence. ·
+  <strong>Reference:</strong> <a href="../reference/glossary.html">Glossary</a></p>
+  <p><strong>Prev:</strong> <a href="0002-from-sentence-to-adr.html">Lesson 2 — From Sentence to ADR</a></p>
+</footer>
+</body>
+</html>

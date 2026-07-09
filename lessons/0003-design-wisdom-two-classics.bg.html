@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 3 — Мъдрост за дизайна: два класика</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .book { border-left: 3px solid var(--accent); padding: .3rem 0 .3rem 1.1rem; margin: 1.4rem 0; }
+  .book .meta { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--faint); }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 40rem) { .twocol { grid-template-columns: 1fr; } }
+  .principle { border: 1px solid var(--rule); border-radius: 6px; padding: .7rem .9rem; }
+  .principle h4 { margin: 0 0 .2rem; font-size: .98rem; }
+  .principle p { margin: 0; font-size: .9rem; color: var(--soft); }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a href="0003-design-wisdom-two-classics.html">EN</a><a class="active" href="0003-design-wisdom-two-classics.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Урок 03 · Преценка за дизайн</p>
+  <h1>Мъдрост за дизайна: два класика</h1>
+  <p class="subtitle">Езикът на сложността, дълбочината и промяната — от Ousterhout и Pragmatic Programmer.</p>
+</header>
+
+<div class="mission">
+  <strong>Защо точно сега.</strong> „По-малко код, повече дизайн“ е един от двигателите ти. Предимството
+  на архитекта не е синтаксис — а <em>преценка за дизайн</em>: да виждаш сложността, преди да е плъзнала,
+  и да оформяш модули, които остават лесни за промяна. Тези две книги са канонът. Урокът гради recall-а,
+  за да щракат принципите <em>в момента</em> — на design review или защитавайки <a href="0002-from-sentence-to-adr.bg.html">ADR</a>.
+</div>
+
+<h2>Книга 1 — <em>A Philosophy of Software Design</em></h2>
+<div class="book">
+  <p class="meta">John Ousterhout · Stanford</p>
+  <p>Една теза: <strong>сложността е врагът</strong>, и почти всяко друго правило съществува, за да я
+  управлява.<sup><a href="#src">1</a></sup> Сложност е всичко, което прави системата трудна за разбиране
+  или промяна. Проявява се с два симптома: <em>change amplification</em> (проста промяна пипа много места)
+  и <em>cognitive load</em> (трябва да държиш твърде много в главата си).</p>
+  <p>Централният му инструмент е <strong>deep module</strong>: <em>прост interface</em> над
+  <em>мощна, сложна имплементация</em>. Interface-ът е цената, която плащаш; функционалността е стойността,
+  която взимаш. <strong>Shallow module</strong> обръща това — дебел interface за малка полза.
+  Механизмът, който прави модулите дълбоки, е <strong>information hiding</strong>: заровеш сложността, за
+  да виждат извикващите само абстракция.</p>
+</div>
+
+<h2>Книга 2 — <em>The Pragmatic Programmer</em></h2>
+<div class="book">
+  <p class="meta">Andrew Hunt &amp; David Thomas</p>
+  <p>Обединяващата ѝ ценност е <strong>ETC — Easy To Change</strong>: добрият дизайн е дизайн, който е
+  лесен за промяна; всеки друг съвет е частен случай.<sup><a href="#src">2</a></sup></p>
+  <div class="twocol">
+    <div class="principle"><h4>DRY</h4><p>Всяко знание има едно единствено, авторитетно представяне. Врагът не е двойното писане — а забравата да обновиш всички копия.</p></div>
+    <div class="principle"><h4>Orthogonality</h4><p>Независимост: промяна в едно не се разлива към другите. Пиши „срамежлив“ код, който върши едно и игнорира останалото.</p></div>
+    <div class="principle"><h4>Tracer bullets</h4><p>Тънък, но <em>истински</em> end-to-end разрез през всички слоеве. За разлика от прототип, пази се и расте — целиш, като гледаш къде пада.</p></div>
+    <div class="principle"><h4>Broken windows</h4><p>Поправяй малките видими дефекти бързо. Оставено само, видимото занемаряване казва „никого не го е грижа“ и разпадът се ускорява.</p></div>
+  </div>
+</div>
+
+<p class="keyidea">И двете книги се схождат в един архитектурен инстинкт: управлявай сложността, така че
+системата да остане <strong>лесна за промяна</strong> — deep modules, които я скриват, ортогонални части,
+които я ограничават, и единствени източници на истина, които спират умножаването ѝ.</p>
+
+<h2>Retrieval practice</h2>
+<p class="muted">Въпросите са преплетени между двете книги нарочно — смесването е по-трудно, а точно тази трудност гради трайна памет.</p>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Какво определя „deep“ модул?</p>
+  <button class="opt">Прост interface, разкриващ малка, тривиална имплементация вътре.</button>
+  <button class="opt">Прост interface, скриващ мощна, сложна имплементация вътре.</button>
+  <button class="opt">Сложен interface, обвиващ мощна, сложна имплементация вътре.</button>
+  <div class="feedback" data-ok="Точно — малък interface, голяма скрита функционалност. Максимум стойност, минимум цена."
+       data-no="Дълбочина = прост interface над мощна, скрита имплементация. Не тривиална и не сложен interface."></div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p class="q">DRY казва, че всяко знание трябва да има:</p>
+  <button class="opt">Две независими, дублирани, синхронизирани представяния в цялата система.</button>
+  <button class="opt">Много гъвкави, дублирани, удобни представяния в цялата система.</button>
+  <button class="opt">Едно единствено, недвусмислено, авторитетно представяне в цялата система.</button>
+  <div class="feedback" data-ok="Именно — един авторитетен източник. Дублирането рискува забравено копие при промяна."
+       data-no="DRY изисква едно авторитетно представяне — не дублирани или излишни копия."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Според Ousterhout врагът на добрия дизайн е:</p>
+  <button class="opt">Сложността — натрупаната трудност да разбираш и променяш кода.</button>
+  <button class="opt">Неефективността — пропилените цикли от бавно и неоптимизирано изпълнение.</button>
+  <button class="opt">Непълнотата — липсващите функции, които потребителите все още очакват.</button>
+  <div class="feedback" data-ok="Да — сложността е главният проблем; повечето други принципи съществуват срещу нея."
+       data-no="Ousterhout назовава сложността като врага — не производителността или липсващи функции."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">Два компонента са ортогонални, когато:</p>
+  <button class="opt">Промяна в единия налага промяна в другия компонент.</button>
+  <button class="opt">Промяна в единия няма ефект върху другия компонент.</button>
+  <button class="opt">Промяна в единия винаги подобрява и другия компонент.</button>
+  <div class="feedback" data-ok="Точно — ортогоналните части са независими; промените остават ограничени."
+       data-no="Ортогоналност значи независимост: промяна в единия няма ефект върху другия."></div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p class="q">Сложността се проявява като change amplification и:</p>
+  <button class="opt">Runtime latency — да трябва да чакаш твърде дълго.</button>
+  <button class="opt">Memory pressure — да трябва да пазиш твърде много.</button>
+  <button class="opt">Cognitive load — да трябва да знаеш твърде много.</button>
+  <div class="feedback" data-ok="Именно — двата симптома са change amplification и cognitive load."
+       data-no="Вторият симптом е cognitive load — колко трябва да знаеш, за да направиш промяна."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">За разлика от прототипа, tracer bullet е:</p>
+  <button class="opt">Тънък, но истински production код през всички слоеве.</button>
+  <button class="opt">Дебел и фалшив еднократен код, имитиращ всички слоеве.</button>
+  <button class="opt">Тънък и фалшив временен код, прескачащ всички слоеве.</button>
+  <div class="feedback" data-ok="Точно — тънък, истински, end-to-end и запазен. Прототипът се хвърля; tracer bullet расте."
+       data-no="Tracer bullet е тънък, но истински production код, end-to-end — не фалшив или за изхвърляне."></div>
+</div>
+
+<div class="task">
+  <h3>Направи това сега — твоята осезаема победа</h3>
+  <p>Избери един модул или service, който притежаваш. В три изречения:</p>
+  <ol>
+    <li><strong>Deep или shallow</strong> е? (Сравни размера на interface-а с функционалността, която дава.)</li>
+    <li>Назови едно парче сложност, което <em>изтича</em> към извикващите, а би могло да се скрие.</li>
+    <li>Кажи една промяна, която би го направила <strong>по-лесен за промяна</strong> (ETC) — да го задълбочиш, ортогонализираш или де-дублираш.</li>
+  </ol>
+  <p>Изпрати го обратно. Ще натисна дали е наистина deep, или shallow с хубаво име — точно преценката,
+  която панел за design review следи.</p>
+</div>
+
+<div class="ask">
+  <strong>Аз съм твоят учител — питай ме каквото и да е.</strong> Искаш идеята за „unknown unknowns“ на
+  Ousterhout или как DRY и orthogonality могат да си противоречат? Питай и ще пусна фокусиран follow-up.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Първоизточници — прочети ги</span><br>
+  1. <strong>John Ousterhout, <em>A Philosophy of Software Design</em></strong> —
+  <a href="https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/">ревю и преглед</a> ·
+  <a href="https://bagerbach.com/books/a-philosophy-of-software-design/">бележки по главите</a>.<br>
+  2. <strong>Hunt &amp; Thomas, <em>The Pragmatic Programmer</em></strong> —
+  <a href="https://pragprog.com/tips/">списъкът с tips</a> ·
+  <a href="https://github.com/HugoMatilla/The-Pragmatic-Programmer">резюме</a>.
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Следва:</strong> Урок 4 — Architect Elevator: артефакти → влияние в борда. ·
+  <strong>Справка:</strong> <a href="../reference/glossary.bg.html">Речник</a></p>
+  <p><strong>Назад:</strong> <a href="0002-from-sentence-to-adr.bg.html">Урок 2 — От изречение към ADR</a></p>
+</footer>
+</body>
+</html>

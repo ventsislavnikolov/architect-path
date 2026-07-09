@@ -92,6 +92,39 @@
   <dd>The AI architect's master trade-off, tracked <em>continuously</em>: better answers vs $ per call vs
   response time. Every AI design decision moves a point inside this triangle.</dd>
 
+  <dt>Complexity <span class="tag">design</span></dt>
+  <dd>Ousterhout: <em>the</em> enemy — anything that makes a system hard to understand or change. Two
+  symptoms: <em>change amplification</em> (one change touches many places) and <em>cognitive load</em>
+  (you must know too much). Most design principles exist to fight it.</dd>
+
+  <dt>Deep / shallow module <span class="tag">design</span></dt>
+  <dd><em>Deep:</em> a simple interface over powerful, complex, hidden implementation — max value, min
+  cost. <em>Shallow:</em> a fat interface for little functionality. Prefer deep modules.</dd>
+
+  <dt>Information hiding <span class="tag">design</span></dt>
+  <dd>Burying implementation complexity so callers see only an abstraction. The mechanism that makes a
+  module deep; also cuts inter-module dependencies.</dd>
+
+  <dt>ETC — Easy To Change <span class="tag">design</span></dt>
+  <dd>The Pragmatic Programmer's unifying value: good design is design that's easy to change. Nearly
+  every other tip is a special case of ETC.</dd>
+
+  <dt>DRY — Don't Repeat Yourself <span class="tag">design</span></dt>
+  <dd>Every piece of <em>knowledge</em> has one single, authoritative representation. The risk isn't
+  typing twice — it's forgetting to update a copy.</dd>
+
+  <dt>Orthogonality <span class="tag">design</span></dt>
+  <dd>Independence between components: a change in one doesn't ripple to others. Achieved by "shy" code
+  that does one job and ignores the rest. Enables isolated change, test, and reuse.</dd>
+
+  <dt>Tracer bullet <span class="tag">design</span></dt>
+  <dd>A thin but <em>real</em>, end-to-end slice through every layer — kept and grown, not thrown away
+  like a prototype. You aim by seeing where it lands.</dd>
+
+  <dt>Broken windows <span class="tag">design</span></dt>
+  <dd>Fix small visible flaws fast; unrepaired neglect signals "nobody cares" and accelerates decay
+  across the whole codebase.</dd>
+
 </dl>
 
 <footer class="lesson-footer">
