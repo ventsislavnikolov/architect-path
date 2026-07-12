@@ -135,17 +135,14 @@ th { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color:
 .progress-track { height: 8px; background: var(--code-bg); border: 1px solid var(--rule); border-radius: 99px; overflow: hidden; }
 .progress-fill { height: 100%; width: 0; background: var(--good); border-radius: 99px; transition: width .35s ease; }
 .progress-meta { display: flex; align-items: baseline; gap: .6rem; margin-top: .5rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--faint); }
-.progress-reset { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--faint); background: none; border: none; border-bottom: 1px dotted var(--faint); cursor: pointer; padding: 0; }
-.progress-reset:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-.done-toggle {
+.done-badge {
   font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--faint); background: var(--bg); border: 1px solid var(--rule); border-radius: 4px;
-  padding: .25em .55em; cursor: pointer; white-space: nowrap; transition: all .12s;
+  color: var(--good); background: rgba(47,107,58,.12); border: 1px solid var(--good);
+  border-radius: 4px; padding: .25em .55em; white-space: nowrap; align-self: center;
 }
-.done-toggle:hover { border-color: var(--good); color: var(--good); }
-.done-toggle.is-done { background: rgba(47,107,58,.12); border-color: var(--good); color: var(--good); }
 .toc-item.done .toc-num { color: var(--good); }
+.toc-item.done .toc-num::after { content: " ✓"; }
 .toc-item.done .toc-body h3 { color: var(--faint); }
 
 /* ---- Footer nav ---- */

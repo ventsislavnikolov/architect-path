@@ -27,6 +27,13 @@
   `main` auto-deploys to production. So the workflow each update is just: edit → commit → push.
 - `.vercel/` and `.env*` are gitignored. Manual deploy fallback: `vercel deploy --prod`.
 
+## Lesson completion tracking (index)
+- **Hardcoded, NOT localStorage** — learner uses phone + desktop, so per-device storage was wrong.
+- Single source of truth: `data-done="true|false"` on each `.toc-item[data-lesson]` in `index.html`.
+- `assets/completion.js` reads it → adds `.done` class, reveals `✓ Done` badge, fills progress bar.
+- **To mark a lesson done:** flip that lesson's `data-done` to `"true"`, commit, push (auto-deploys).
+- Current state: L1 = done; L2, L3 = not done (learner hasn't submitted their tasks yet).
+
 ## Pedagogy reminders
 - Storage strength > fluency: use retrieval practice, spacing, interleaving.
 - Quizzes: all answer options equal length/word-count, no formatting tells.
