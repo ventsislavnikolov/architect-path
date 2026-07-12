@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Architect Path — Principal Dev → (AI) Software Architect</title>
 <link rel="stylesheet" href="./assets/styles.css">
+<script src="./assets/progress.js"></script>
 <style>
   .cover { text-align: center; padding: 2rem 0 1rem; border-bottom: 2px solid var(--ink); margin-bottom: 2.5rem; }
   .cover h1 { font-size: 2.6rem; }
@@ -39,7 +40,16 @@ around the mission of an internal promotion. Read it like a book. Each lesson ex
 
 <p class="section-label">Lessons · Уроци</p>
 
-<div class="toc-item">
+<div id="progress-summary" class="progress-summary">
+  <div class="progress-track"><div class="progress-fill"></div></div>
+  <div class="progress-meta">
+    <span class="progress-count">0 / 0 lessons done · уроци</span>
+    <span>·</span>
+    <button id="progress-reset" type="button">reset · нулирай</button>
+  </div>
+</div>
+
+<div class="toc-item" data-lesson="l1">
   <div class="toc-num">01</div>
   <div class="toc-body">
     <h3>The Architect's First Move</h3>
@@ -49,9 +59,10 @@ around the mission of an internal promotion. Read it like a book. Each lesson ex
     <a href="./lessons/0001-the-architects-first-move.html">EN</a>
     <a href="./lessons/0001-the-architects-first-move.bg.html">BG</a>
   </div>
+  <button class="done-toggle" type="button">Mark done</button>
 </div>
 
-<div class="toc-item">
+<div class="toc-item" data-lesson="l2">
   <div class="toc-num">02</div>
   <div class="toc-body">
     <h3>From Sentence to ADR</h3>
@@ -61,9 +72,10 @@ around the mission of an internal promotion. Read it like a book. Each lesson ex
     <a href="./lessons/0002-from-sentence-to-adr.html">EN</a>
     <a href="./lessons/0002-from-sentence-to-adr.bg.html">BG</a>
   </div>
+  <button class="done-toggle" type="button">Mark done</button>
 </div>
 
-<div class="toc-item">
+<div class="toc-item" data-lesson="l3">
   <div class="toc-num">03</div>
   <div class="toc-body">
     <h3>Design Wisdom: Two Classics</h3>
@@ -73,6 +85,7 @@ around the mission of an internal promotion. Read it like a book. Each lesson ex
     <a href="./lessons/0003-design-wisdom-two-classics.html">EN</a>
     <a href="./lessons/0003-design-wisdom-two-classics.bg.html">BG</a>
   </div>
+  <button class="done-toggle" type="button">Mark done</button>
 </div>
 
 <div class="toc-item soon">
