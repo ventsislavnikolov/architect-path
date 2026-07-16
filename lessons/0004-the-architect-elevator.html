@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4 — The Architect Elevator</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .floors { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 1.6rem 0; }
+  .floor { display: flex; gap: 1rem; padding: .9rem 1.1rem; align-items: baseline; }
+  .floor + .floor { border-top: 1px dashed var(--rule); }
+  .floor .name { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); min-width: 8.5rem; }
+  .floor p { margin: 0; font-size: .95rem; color: var(--soft); }
+  .translate { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.4rem 0; }
+  @media (max-width: 40rem) { .translate { grid-template-columns: 1fr; } }
+  .translate .cell { border: 1px solid var(--rule); border-radius: 6px; padding: .8rem 1rem; font-size: .93rem; }
+  .translate .cell h4 { margin: 0 0 .3rem; font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a class="active" href="0004-the-architect-elevator.html">EN</a><a href="0004-the-architect-elevator.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Lesson 04 · Influence</p>
+  <h1>The Architect Elevator</h1>
+  <p class="subtitle">Riding between the engine room and the penthouse — where your artifacts become influence.</p>
+</header>
+
+<div class="mission">
+  <strong>Why this, now.</strong> You have the artifacts: a trade-off sentence
+  (<a href="0001-the-architects-first-move.html">L1</a>) and an ADR
+  (<a href="0002-from-sentence-to-adr.html">L2</a>). But an internal promotion is granted by people who
+  never read ADRs. This lesson is about carrying your reasoning <em>up the building</em> — the "broader
+  influence" your mission names, done deliberately.
+</div>
+
+<p>Gregor Hohpe's metaphor: a modern organization is a high-rise. Business strategy is set in the
+<strong>penthouse</strong>; software gets built in the <strong>engine room</strong>. In many companies
+the middle floors are occupied by steering committees and slide decks — and information degrades every
+floor it passes. The architect's defining act is to <strong>ride the elevator</strong>: move personally
+between floors and translate both directions, skipping the lossy middle.<sup><a href="#src">1</a></sup></p>
+
+<p class="keyidea">Your value as an architect isn't living on the top floor or being the smartest in the
+engine room — it's the <strong>number of floors you span</strong>, and making the people on each floor
+smarter rather than more impressed.</p>
+
+<h2>What each floor hears</h2>
+<p>The same decision — your React ADR — sounds different on each floor. Riding the elevator means
+switching vocabulary without switching the truth:</p>
+
+<div class="floors">
+  <div class="floor"><span class="name">Penthouse</span><p>"We're standardizing our frontend technology so we can hire faster, reuse web skills for the mobile app, and reduce the risk of betting on a dying stack."</p></div>
+  <div class="floor"><span class="name">Middle floors</span><p>"One approved stack, a migration path for legacy apps, and a paved-road starter — teams keep autonomy inside those guardrails."</p></div>
+  <div class="floor"><span class="name">Engine room</span><p>"New frontends use the React starter (router, state, lint preset included). CI blocks new Angular/Ember packages — see ADR-0007."</p></div>
+</div>
+
+<p>Same decision, three renderings. Notice the penthouse version contains <em>zero</em> technology
+names except the one being standardized — it's all money, risk, and speed.</p>
+
+<h2>Selling options</h2>
+<p>What does the penthouse actually buy from architecture? Hohpe's answer: <strong>options</strong> —
+the right, but not the obligation, to change direction later.<sup><a href="#src">2</a></sup> Good
+architecture keeps doors open: the React paved road is an option on mobile (React Native) that you may
+or may not exercise. Options have real value <em>because the future is uncertain</em> — and executives,
+who think in portfolios and hedges, understand this language natively. "This design costs 10% more now
+but lets us defer the vendor decision 12 months" is an architect sentence a CFO can price.</p>
+
+<h2>Living in the first derivative</h2>
+<p>Hohpe: what matters isn't your position but your <strong>rate of change</strong> — the first
+derivative. An architecture is good if it lets the organization <em>change quickly</em>: a tuned
+toolchain, fast deploys, reversible decisions.<sup><a href="#src">3</a></sup> This links straight back
+to <a href="0003-design-wisdom-two-classics.html">Lesson 3</a>: ETC ("easy to change") is the
+engine-room name for the same value the penthouse calls "strategic agility". You now have the same
+principle in both floors' vocabulary — that <em>is</em> the elevator.</p>
+
+<h2>Check yourself</h2>
+
+<div class="quiz" data-answer="2">
+  <p class="q">The architect elevator's core act is:</p>
+  <button class="opt">Presenting in the penthouse so leadership approves each project.</button>
+  <button class="opt">Deciding in the engine room so developers deliver each feature.</button>
+  <button class="opt">Translating between floors so strategy and code stay connected.</button>
+  <div class="feedback" data-ok="Right — the value is spanning floors and translating both directions, skipping the lossy middle."
+       data-no="It's neither floor alone — the defining act is riding between them and translating both ways."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">In Hohpe's terms, architecture "sells options" means:</p>
+  <button class="opt">Designs preserve the right to change direction later without obligation.</button>
+  <button class="opt">Architects license their designs to other teams for internal fees.</button>
+  <button class="opt">Systems ship with configurable settings so users adjust behavior anytime.</button>
+  <div class="feedback" data-ok="Exactly — like financial options: the right, not the obligation, to change later. Valuable because the future is uncertain."
+       data-no="Options here are strategic, not commercial or configurable — the preserved right to change direction later."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">"Living in the first derivative" values a system by its:</p>
+  <button class="opt">Current size — how much functionality it has accumulated today.</button>
+  <button class="opt">Rate of change — how quickly it can adapt tomorrow.</button>
+  <button class="opt">Total cost — how much budget it consumes each year.</button>
+  <div class="feedback" data-ok="Right — the derivative is speed of change; ETC and strategic agility are the same value on different floors."
+       data-no="The first derivative is rate of change — how fast the system (and org) can adapt, not size or cost."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">A penthouse rendering of a technical decision should contain:</p>
+  <button class="opt">Business consequences — hiring, risk, speed, and money.</button>
+  <button class="opt">Implementation details — libraries, tooling, patterns, and configs.</button>
+  <button class="opt">Team specifics — owners, tickets, sprints, and deadlines.</button>
+  <div class="feedback" data-ok="Yes — the penthouse hears money, risk, and speed. The tech stays in the engine room."
+       data-no="Penthouse language is business consequences: hiring, risk, speed, money — not tech or ticket detail."></div>
+</div>
+
+<div class="task">
+  <h3>Do this now — your tangible win</h3>
+  <p>Take your React ADR (or any decision you own) and write its <strong>penthouse rendering</strong>:
+  <strong>≤ 3 sentences</strong>, rules of the floor:</p>
+  <ol>
+    <li>No technology names except, at most, the thing being decided.</li>
+    <li>Every sentence must carry money, risk, speed, or optionality.</li>
+    <li>End with the <em>option</em> it buys: "this keeps the door open to ___".</li>
+  </ol>
+  <p>Paste it back — I'll review it as a skeptical executive with 90 seconds. This is the exact skill
+  of your promotion case: the panel <em>is</em> the penthouse.</p>
+</div>
+
+<div class="ask">
+  <strong>I'm your teacher — ask me anything.</strong> Want to rehearse a real upcoming meeting?
+  Or see how to price an option ("costs X now, defers Y") on one of your decisions? Ask.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Primary source — read this next</span><br>
+  <strong>Gregor Hohpe, <em>The Software Architect Elevator</em></strong> —
+  <a href="https://www.oreilly.com/library/view/the-software-architect/9781492077534/ch01.html">Ch. 1 (free online)</a> ·
+  <a href="https://architectelevator.com/architecture/architecture-options/">2. "Architecture: Selling Options" (free essay)</a> ·
+  <a href="https://www.jonas.rs/2024/10/03/book-summary-the-software-architect-elevator.html">3. book summary</a>.
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Next:</strong> Lesson 5 — AI systems as architecture: RAG vs fine-tune, eval, cost/latency,
+  guardrails. · <strong>Reference:</strong> <a href="../reference/glossary.html">Glossary</a></p>
+  <p><strong>Prev:</strong> <a href="0003-design-wisdom-two-classics.html">Lesson 3 — Design Wisdom: Two Classics</a></p>
+</footer>
+</body>
+</html>

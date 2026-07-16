@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 4 — Architect Elevator</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="../assets/quiz.js"></script>
+<style>
+  .floors { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 1.6rem 0; }
+  .floor { display: flex; gap: 1rem; padding: .9rem 1.1rem; align-items: baseline; }
+  .floor + .floor { border-top: 1px dashed var(--rule); }
+  .floor .name { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); min-width: 8.5rem; }
+  .floor p { margin: 0; font-size: .95rem; color: var(--soft); }
+</style>
+</head>
+<body>
+<p class="lang-toggle"><a href="0004-the-architect-elevator.html">EN</a><a class="active" href="0004-the-architect-elevator.bg.html">BG</a></p>
+<header class="masthead">
+  <p class="kicker">Урок 04 · Влияние</p>
+  <h1>Architect Elevator</h1>
+  <p class="subtitle">Пътуване между машинното отделение и penthouse-а — където артефактите ти стават влияние.</p>
+</header>
+
+<div class="mission">
+  <strong>Защо точно сега.</strong> Имаш артефактите: trade-off изречение
+  (<a href="0001-the-architects-first-move.bg.html">У1</a>) и ADR
+  (<a href="0002-from-sentence-to-adr.bg.html">У2</a>). Но вътрешното повишение се дава от хора, които
+  никога не четат ADR-и. Този урок е за пренасянето на разсъжденията ти <em>нагоре по сградата</em> —
+  „по-широкото влияние“ от мисията ти, направено съзнателно.
+</div>
+
+<p>Метафората на Gregor Hohpe: модерната организация е висока сграда. Бизнес стратегията се прави в
+<strong>penthouse-а</strong>; софтуерът се строи в <strong>машинното отделение</strong> (engine room).
+В много компании средните етажи са заети от комитети и презентации — и информацията се разпада на всеки
+етаж, през който минава. Определящото действие на архитекта е да <strong>кара асансьора</strong>: да се
+движи лично между етажите и да превежда в двете посоки, прескачайки губещата среда.<sup><a href="#src">1</a></sup></p>
+
+<p class="keyidea">Стойността ти като архитект не е да живееш на последния етаж, нито да си най-умният в
+машинното — а <strong>броят етажи, които обхващаш</strong>, и това да правиш хората на всеки етаж
+по-умни, а не по-впечатлени.</p>
+
+<h2>Какво чува всеки етаж</h2>
+<p>Едно и също решение — твоят React ADR — звучи различно на всеки етаж. Каране на асансьора значи да
+сменяш речника, без да сменяш истината:</p>
+
+<div class="floors">
+  <div class="floor"><span class="name">Penthouse</span><p>„Стандартизираме frontend технологията си, за да наемаме по-бързо, да преизползваме web уменията за мобилното приложение и да намалим риска от залог на умиращ стек.“</p></div>
+  <div class="floor"><span class="name">Средни етажи</span><p>„Един одобрен стек, migration път за legacy приложенията и paved-road starter — екипите пазят автономия вътре в тези guardrails.“</p></div>
+  <div class="floor"><span class="name">Машинно</span><p>„Новите frontend-и ползват React starter-а (router, state, lint preset включени). CI блокира нови Angular/Ember пакети — виж ADR-0007.“</p></div>
+</div>
+
+<p>Едно решение, три предавания. Забележи: penthouse версията съдържа <em>нула</em> имена на технологии
+освен самата стандартизирана — всичко е пари, риск и скорост.</p>
+
+<h2>Продаване на options</h2>
+<p>Какво всъщност купува penthouse-ът от архитектурата? Отговорът на Hohpe: <strong>options</strong> —
+правото, но не задължението, да смениш посоката по-късно.<sup><a href="#src">2</a></sup> Добрата
+архитектура държи врати отворени: React paved road-ът е option върху мобилното (React Native), който
+може да упражниш или не. Options имат реална стойност, <em>защото бъдещето е несигурно</em> — а
+ръководителите, които мислят в портфейли и хеджове, разбират този език по рождение. „Този дизайн струва
+10% повече сега, но ни позволява да отложим vendor решението с 12 месеца“ е архитектско изречение, което
+един CFO може да остойности.</p>
+
+<h2>Живот в първата производна</h2>
+<p>Hohpe: важна е не позицията ти, а <strong>скоростта ти на промяна</strong> — първата производна (first
+derivative). Една архитектура е добра, ако позволява на организацията да се <em>променя бързо</em>:
+настроен toolchain, бързи deploys, обратими решения.<sup><a href="#src">3</a></sup> Това връзва право към
+<a href="0003-design-wisdom-two-classics.bg.html">Урок 3</a>: ETC („easy to change“) е името на същата
+ценност в машинното, която penthouse-ът нарича „стратегическа гъвкавост“. Вече имаш един принцип в
+речника и на двата етажа — точно това <em>е</em> асансьорът.</p>
+
+<h2>Провери се</h2>
+
+<div class="quiz" data-answer="2">
+  <p class="q">Основното действие на architect elevator е:</p>
+  <button class="opt">Да презентираш в penthouse-а, така че ръководството да одобрява проектите.</button>
+  <button class="opt">Да решаваш в машинното, така че разработчиците да доставят функционалностите.</button>
+  <button class="opt">Да превеждаш между етажите, така че стратегия и код да останат свързани.</button>
+  <div class="feedback" data-ok="Точно — стойността е да обхващаш етажи и да превеждаш в двете посоки, прескачайки губещата среда."
+       data-no="Не е нито един етаж сам — определящото действие е да караш между тях и да превеждаш двупосочно."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">„Архитектурата продава options“ при Hohpe значи:</p>
+  <button class="opt">Дизайните пазят правото да сменим посоката по-късно без задължение.</button>
+  <button class="opt">Архитектите лицензират дизайните си на други екипи срещу вътрешни такси.</button>
+  <button class="opt">Системите идват с настройки, така че потребителите да променят поведението винаги.</button>
+  <div class="feedback" data-ok="Именно — като финансовите options: право, не задължение, да промениш по-късно. Ценно, защото бъдещето е несигурно."
+       data-no="Options тук са стратегически, не търговски или конфигурационни — запазеното право да смениш посоката по-късно."></div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p class="q">„Живот в първата производна“ оценява система по нейния:</p>
+  <button class="opt">Текущ размер — колко функционалност е натрупала към днешна дата.</button>
+  <button class="opt">Темп на промяна — колко бързо може да се адаптира утре.</button>
+  <button class="opt">Общ разход — колко бюджет консумира през всяка една година.</button>
+  <div class="feedback" data-ok="Точно — производната е скорост на промяна; ETC и стратегическата гъвкавост са същата ценност на различни етажи."
+       data-no="Първата производна е темп на промяна — колко бързо системата (и организацията) се адаптира, не размер или разход."></div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p class="q">Penthouse предаване на техническо решение трябва да съдържа:</p>
+  <button class="opt">Бизнес последствия — наемане, риск, скорост и пари.</button>
+  <button class="opt">Имплементационни детайли — библиотеки, инструменти, patterns и конфигурации.</button>
+  <button class="opt">Екипни конкретики — собственици, тикети, спринтове и крайни срокове.</button>
+  <div class="feedback" data-ok="Да — penthouse-ът чува пари, риск и скорост. Технологията остава в машинното."
+       data-no="Езикът на penthouse-а е бизнес последствия: наемане, риск, скорост, пари — не технически или тикет детайли."></div>
+</div>
+
+<div class="task">
+  <h3>Направи това сега — твоята осезаема победа</h3>
+  <p>Вземи React ADR-а си (или друго твое решение) и напиши неговото <strong>penthouse предаване</strong>:
+  <strong>≤ 3 изречения</strong>, правила на етажа:</p>
+  <ol>
+    <li>Без имена на технологии — най-много самото нещо, което се решава.</li>
+    <li>Всяко изречение носи пари, риск, скорост или optionality.</li>
+    <li>Завърши с <em>option</em>-а, който купува: „това държи вратата отворена към ___“.</li>
+  </ol>
+  <p>Изпрати го — ще го ревюирам като скептичен изпълнителен директор с 90 секунди. Това е точното умение
+  на кейса ти за повишение: панелът <em>е</em> penthouse-ът.</p>
+</div>
+
+<div class="ask">
+  <strong>Аз съм твоят учител — питай ме каквото и да е.</strong> Искаш да репетираме реална предстояща
+  среща? Или да видиш как се остойностява option („струва X сега, отлага Y“) върху твое решение? Питай.
+</div>
+
+<p class="primary-source" id="src">
+  <span class="label">Първоизточник — прочети това следващо</span><br>
+  <strong>Gregor Hohpe, <em>The Software Architect Elevator</em></strong> —
+  <a href="https://www.oreilly.com/library/view/the-software-architect/9781492077534/ch01.html">Гл. 1 (безплатна онлайн)</a> ·
+  <a href="https://architectelevator.com/architecture/architecture-options/">2. „Architecture: Selling Options“ (безплатно есе)</a> ·
+  <a href="https://www.jonas.rs/2024/10/03/book-summary-the-software-architect-elevator.html">3. резюме на книгата</a>.
+</p>
+
+<footer class="lesson-footer">
+  <p><strong>Следва:</strong> Урок 5 — AI системите като архитектура: RAG vs fine-tune, eval,
+  cost/latency, guardrails. · <strong>Справка:</strong> <a href="../reference/glossary.bg.html">Речник</a></p>
+  <p><strong>Назад:</strong> <a href="0003-design-wisdom-two-classics.bg.html">Урок 3 — Мъдрост за дизайна</a></p>
+</footer>
+</body>
+</html>
